@@ -270,7 +270,7 @@ class ImageCarousel(
             field = value
 
             indicator?.apply {
-                setBackgroundColor(field)
+                this.background?.setTint(field)
             }
         }
 
