@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
@@ -30,8 +31,8 @@ import org.imaginativeworld.whynotimagecarousel.adapter.InfiniteCarouselAdapter
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselOnScrollListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselGravity
-import org.imaginativeworld.whynotimagecarousel.model.CarouselType
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.model.CarouselType
 import org.imaginativeworld.whynotimagecarousel.utils.*
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
@@ -226,6 +227,13 @@ class ImageCarousel(
             tvCaption.visibility = if (showCaption) View.VISIBLE else View.GONE
         }
 
+    var captionTextColor = resources.getColor(R.color.white)
+        set(value) {
+            field = value
+
+            tvCaption.setTextColor(field)
+        }
+
     @Dimension(unit = Dimension.PX)
     var captionMargin: Int = 0
         set(value) {
@@ -255,6 +263,15 @@ class ImageCarousel(
             field = value
 
             initIndicator()
+        }
+
+    var indicatorColor = resources.getColor(R.color.white)
+        set(value) {
+            field = value
+
+            indicator?.apply {
+                setBackgroundColor(field)
+            }
         }
 
     @Dimension(unit = Dimension.PX)
@@ -616,6 +633,14 @@ class ImageCarousel(
                     true
                 )
 
+                captionTextColor = getColor(
+                    R.styleable.ImageCarousel_captionTextColor,
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                        resources.getColor(R.color.white, context.theme)
+                    else
+                        resources.getColor(R.color.white)
+                )
+
                 captionMargin = getDimension(
                     R.styleable.ImageCarousel_captionMargin,
                     0.dpToPx(context).toFloat()
@@ -643,6 +668,14 @@ class ImageCarousel(
                 showIndicator = getBoolean(
                     R.styleable.ImageCarousel_showIndicator,
                     true
+                )
+
+                indicatorColor = getColor(
+                    R.styleable.ImageCarousel_indicatorColor,
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                        resources.getColor(R.color.white, context.theme)
+                    else
+                        resources.getColor(R.color.white)
                 )
 
                 indicatorMargin = getDimension(
