@@ -16,9 +16,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.Dimension
-import androidx.annotation.IdRes
-import androidx.annotation.LayoutRes
+import androidx.annotation.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -265,12 +263,12 @@ class ImageCarousel(
             initIndicator()
         }
 
-    var indicatorColor = resources.getColor(R.color.white)
+    @ColorInt var indicatorColor = resources.getColor(R.color.white)
         set(value) {
             field = value
 
             indicator?.apply {
-                this.background?.setTint(field)
+                this.tintIndicator(value)
             }
         }
 
